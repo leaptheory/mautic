@@ -143,3 +143,5 @@ tests/**/*.sql
 !/themes/blank-big.png
 
 /translations
+
+/projects
