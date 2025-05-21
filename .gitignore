@@ -144,4 +144,4 @@ tests/**/*.sql
 
 /translations
 
-/projects
+/projects/*
