@@ -1,0 +1,4 @@
+services:
+  web:
+    volumes:
+      - ../../mautic-leaptheory-plugin:/var/www/mautic-leaptheory-plugin
