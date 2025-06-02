@@ -1,0 +1,1 @@
+RUN apt-get update && apt-get install -y --no-install-recommends php8.3-amqp

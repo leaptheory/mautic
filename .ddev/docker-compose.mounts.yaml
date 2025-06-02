@@ -2,3 +2,4 @@ services:
   web:
     volumes:
       - ../../mautic-leaptheory-plugin:/var/www/mautic-leaptheory-plugin
+      - ./ssl/lets-encrypt.crt:/etc/ssl/certs/lets-encrypt.crt
