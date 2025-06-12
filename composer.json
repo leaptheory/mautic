@@ -22,6 +22,7 @@
     },
   "require": {
     "composer/installers": "^1.11",
+    "fakerphp/faker": "^1.24",
     "mautic/api-library": "^3.1",
     "mautic/core-lib": "^6.0",
     "symfony/amqp-messenger": "^5.4"
