@@ -2,4 +2,5 @@ services:
   web:
     volumes:
       - ../../mautic-leaptheory-plugin:/var/www/mautic-leaptheory-plugin
+      - ../../mautic-leaptheory-plugin/.dev/supervisor/leap_theory_mq.conf:/etc/supervisor/conf.d/leap_theory_mq.conf
       - ./ssl/lets-encrypt.crt:/etc/ssl/certs/lets-encrypt.crt
