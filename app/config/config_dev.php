@@ -48,8 +48,13 @@ $container->loadFromExtension('monolog', [
     'channels' => [
         'mautic',
         'chrome',
+        'event', // Disabling logging for this event because it's super noisy.
     ],
     'handlers' => [
+        'event' => [
+            'type' => 'null', // Disabling logging for this event because it's super noisy.
+            'channels' => ['event'],
+        ],
         'main' => [
             'formatter' => 'mautic.monolog.fulltrace.formatter',
             'type'      => 'rotating_file',
