@@ -147,6 +147,94 @@ php bin/console list mautic
 composer githooks
 ```
 
+## LeapTheory Custom Plugin
+
+### Overview
+
+The **LeapTheory Plugin** is a custom Mautic plugin that enhances the SMS system with advanced features for the Leap Message product. It provides SMS provider rotation, support for multiple SMS providers (Volt, Mobiniti, Mobiz), phone carrier lookup, URL shortening, and comprehensive tracking/reporting capabilities.
+
+### File Access Locations
+
+**IMPORTANT**: The plugin files cannot be accessed through the symlink. Use the full path:
+
+- **Plugin Source Code**: `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/`
+- **Symlinked Location** (for Mautic integration): `plugins/LeapTheoryBundle/` ⚠️ Cannot read through symlink
+- **Plugin Documentation**: `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
+
+### Working With Both Codebases
+
+When developing plugin features, follow this workflow:
+
+#### 1. Reference Mautic Core for Context
+
+Use the Mautic codebase at `/home/robert/projects/leaptheory/mautic/` to:
+- Understand how Mautic bundles work (EmailBundle, CampaignBundle, SmsBundle, etc.)
+- See how other plugins integrate (check `plugins/*/`)
+- Study entity relationships and repository patterns
+- Understand event systems and service registration
+- Review Mautic's plugin architecture and integration points
+
+#### 2. Develop in Plugin Directory
+
+All plugin code changes go to:
+- **Path**: `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/`
+- Edit plugin source files here
+- Create/modify tests in `Tests/Unit/`
+- Update migrations in `Migrations/`
+- Modify configurations in `Config/`
+
+#### 3. Test from Mautic Root
+
+Run commands from `/home/robert/projects/leaptheory/mautic/`:
+
+```bash
+# Reload plugin after code changes
+php bin/console mautic:plugins:reload
+
+# Clear cache
+php bin/console cache:clear
+
+# Run plugin-specific commands
+php bin/console leap-theory:message-queue:manage status
+php bin/console leap-theory:event-queue:manage status
+
+# Consume async message queues
+php bin/console messenger:consume contact carrier_lookup webhook sms filter_stats unsub unsub_proxy
+```
+
+### Key Integration Points
+
+The LeapTheory plugin integrates with Mautic through:
+
+- **SMS Transport**: `LeapTheoryTransport` - Custom SMS transport implementation
+- **SMS Provider Clients**: Factory pattern for Volt, Mobiniti, Mobiz providers
+- **Provider Rotation**: Multiple strategies (round-robin, sticky, least-utilized)
+- **Async Processing**: Symfony Messenger with dedicated transports (contact, carrier_lookup, webhook, sms, filter_stats, unsub, unsub_proxy)
+- **Custom Campaign Actions**: Integration with CampaignBundle for SMS automation
+- **Custom Segment Filters**: Campaign filter system for advanced segmentation
+- **Custom Reports**: Analytics and reporting contexts
+- **URL Shortening**: Custom shortener service replacing Mautic's default
+- **Webhook Handlers**: Process delivery status callbacks from SMS providers
+
+### Plugin Architecture Highlights
+
+- **Domain-Driven Design**: Business logic organized by domain (Campaign, CampaignFilter, Report, SmsSendLog, ContactService, PhoneCarrierLookupService)
+- **Service Layer**: Clear separation of concerns (SmsService, ProviderRotationService, UnsubService, etc.)
+- **Async Message Processing**: Leverages Symfony Messenger for scalable, non-blocking operations
+- **Claimable Entities**: Distributed processing pattern for handling high-volume operations safely
+- **Custom Base Entities**: AbstractBaseEntityWithTimestamps, AbstractBaseBigIntIdEntity, AbstractBaseClaimableBigIntIdEntity
+
+### Current Development Focus
+
+- **Feature Branch**: `feat/unsub_proxy`
+- **Main Branch**: `develop` (use for PRs)
+- **Current Work**: Unsubscribe proxy functionality with `UnsubProxyNotification` message handling
+
+### Plugin-Specific Documentation
+
+For complete plugin documentation, architecture details, and development guidelines, see:
+- `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
+
 ## Codebase Architecture
 
 ### Bundle-Based Modular Structure
