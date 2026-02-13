@@ -1,0 +1,30 @@
+# ClickHouse service for DDEV
+# Matches production version v26.1.2.11
+# HTTP interface available at http://clickhouse:8123 from the web container
+
+services:
+  clickhouse:
+    container_name: ddev-${DDEV_SITENAME}-clickhouse
+    hostname: ${DDEV_SITENAME}-clickhouse
+    image: clickhouse/clickhouse-server:26.1.2.11
+    ports:
+      - "8123:8123"
+    expose:
+      - 8123
+      - 9000
+    labels:
+      com.ddev.site-name: ${DDEV_SITENAME}
+      com.ddev.approot: ${DDEV_APPROOT}
+    volumes:
+      - "clickhouse:/var/lib/clickhouse"
+      - "./clickhouse/default-user.xml:/etc/clickhouse-server/users.d/default-user.xml"
+      - ".:/mnt/ddev_config"
+  web:
+    depends_on:
+      - clickhouse
+    links:
+      - clickhouse:clickhouse
+
+volumes:
+  clickhouse:
+    name: "${DDEV_SITENAME}_clickhouse"
