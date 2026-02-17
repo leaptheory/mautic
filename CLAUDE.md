@@ -2,6 +2,9 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+**IMPORTANT**: Before doing ANY work related to the LeapTheory plugin, ALWAYS read the plugin's CLAUDE.md first:
+`/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
+
 ## Project Overview
 
 Mautic is the world's largest open-source marketing automation platform built on Symfony 6.4, providing a complete alternative to proprietary tools like HubSpot and Marketo. It's privacy-focused, self-hosted, and fully customizable with a modular plugin/theme architecture.
