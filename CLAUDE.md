@@ -1,9 +1,13 @@
+## MANDATORY PREREQUISITE — DO NOT SKIP
+
+STOP. Before taking ANY action (reading files, running commands, writing code) related to the LeapTheory plugin, you MUST first read:
+`/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
+
+This is a BLOCKING requirement. Do not proceed with the user's request until this file has been read. No exceptions.
+
 # CLAUDE.md
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
-
-**IMPORTANT**: Before doing ANY work related to the LeapTheory plugin, ALWAYS read the plugin's CLAUDE.md first:
-`/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
 
 ## Project Overview
 
