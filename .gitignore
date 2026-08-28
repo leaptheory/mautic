@@ -145,3 +145,6 @@ tests/**/*.sql
 /translations
 
 /projects/*
+
+/media-s3/*
+/media-local/*
