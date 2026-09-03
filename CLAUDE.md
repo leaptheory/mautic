@@ -1,7 +1,7 @@
 ## MANDATORY PREREQUISITE — DO NOT SKIP
 
 STOP. Before taking ANY action (reading files, running commands, writing code) related to the LeapTheory plugin, you MUST first read:
-`/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
+`../mautic-leaptheory-plugin/CLAUDE.md` (equivalently `plugins/LeapTheoryBundle/CLAUDE.md`, via the symlink)
 
 This is a BLOCKING requirement. Do not proceed with the user's request until this file has been read. No exceptions.
 
@@ -162,11 +162,17 @@ The **LeapTheory Plugin** is a custom Mautic plugin that enhances the SMS system
 
 ### File Access Locations
 
-**IMPORTANT**: The plugin files cannot be accessed through the symlink. Use the full path:
+The plugin is a separate git repository, checked out as a **sibling of this one** and symlinked
+into `plugins/`. Paths here are relative to the Mautic project root — do not hardcode absolute
+paths, they differ per machine.
 
-- **Plugin Source Code**: `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/`
-- **Symlinked Location** (for Mautic integration): `plugins/LeapTheoryBundle/` ⚠️ Cannot read through symlink
-- **Plugin Documentation**: `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
+- **Plugin Source Code**: `../mautic-leaptheory-plugin/`
+- **Symlinked Location** (for Mautic integration): `plugins/LeapTheoryBundle -> ../../mautic-leaptheory-plugin`
+- **Plugin Documentation**: `../mautic-leaptheory-plugin/CLAUDE.md`
+
+Either path works for reading and editing; the symlink is fully traversable. If a tool reports the
+symlinked path as missing, the symlink target is wrong rather than the plugin: it must be exactly
+`../../mautic-leaptheory-plugin` (resolved relative to `plugins/`), not `mautic-leaptheory-plugin`.
 
 ### Working With Both Codebases
 
@@ -174,7 +180,7 @@ When developing plugin features, follow this workflow:
 
 #### 1. Reference Mautic Core for Context
 
-Use the Mautic codebase at `/home/robert/projects/leaptheory/mautic/` to:
+Use the Mautic codebase in this repository to:
 - Understand how Mautic bundles work (EmailBundle, CampaignBundle, SmsBundle, etc.)
 - See how other plugins integrate (check `plugins/*/`)
 - Study entity relationships and repository patterns
@@ -184,7 +190,7 @@ Use the Mautic codebase at `/home/robert/projects/leaptheory/mautic/` to:
 #### 2. Develop in Plugin Directory
 
 All plugin code changes go to:
-- **Path**: `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/`
+- **Path**: `../mautic-leaptheory-plugin/` (or `plugins/LeapTheoryBundle/` through the symlink)
 - Edit plugin source files here
 - Create/modify tests in `Tests/Unit/`
 - Update migrations in `Migrations/`
@@ -192,7 +198,7 @@ All plugin code changes go to:
 
 #### 3. Test from Mautic Root
 
-Run commands from `/home/robert/projects/leaptheory/mautic/`:
+Run commands from the Mautic project root (this repository):
 
 ```bash
 # Reload plugin after code changes
@@ -240,7 +246,7 @@ The LeapTheory plugin integrates with Mautic through:
 ### Plugin-Specific Documentation
 
 For complete plugin documentation, architecture details, and development guidelines, see:
-- `/home/robert/projects/leaptheory/mautic-leaptheory-plugin/CLAUDE.md`
+- `../mautic-leaptheory-plugin/CLAUDE.md`
 
 ## Codebase Architecture
 
